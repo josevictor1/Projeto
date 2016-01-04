@@ -1,0 +1,25 @@
+
+
+Bibliotecas de interface:
+
+[[Allegro]]
+
+-- Allegro -- ver [[Pacman]]
+* https://www.youtube.com/watch?v=NHq58TlWLe0&list=PLXO4S2lM3TR5RnKwnB5c2SR5EDmwLb-mR
+
+* http://www.rafaeltoledo.net/tutoriais-allegro-5/
+
+[[NCURSES]]
+-- ncurses
+* https://www.youtube.com/watch?v=2tWN6ntNo4w
+
+*  http://www.facom.ufu.br/~autran/apoio/ed/Tutorial-NCURSES.pdf
+*  http://www.vivaolinux.com.br/artigo/Utilizando-a-biblioteca-NCURSES-Parte-I?pagina=1
+*  http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/
+*  http://www.linuxfocus.org/Portugues/March2002/article233.shtml
+
+[[GTK]]
+-- gtk
+
+* http://equipe.nce.ufrj.br/adriano/c/apostila/gtk/html/tutorial.html
+--
