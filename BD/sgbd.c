@@ -27,7 +27,7 @@ void PreparaTabela(Tabela *tabela){
 
 int inseretabela(Schema *esquema, Tabela tabela){
 	int i = 0;
-	if(esquema->quantidade_tabela != 0 && esquema->quantidade_tabela < MAX){
+	if(esquema->quantidade_tabela < MAX){
 		while (i < MAX && esquema->Tabela[i].flag != -1){
 			i++;
 		}
@@ -48,7 +48,7 @@ int inseretabela(Schema *esquema, Tabela tabela){
 int inseretupla(Schema *esquema, Tupla tupla, int i){
 	int j = 0;
 
-	if (i < MAX && i > 0){
+	if (i < MAX && i >= 0){
 		if(esquema->Tabela[i].flag != -1 && esquema->quantidade_tabela != 0 && esquema->Tabela[i].quantidade_tupla < MAX){
 			if(esquema->Tabela[i].Tupla[hashtable(tupla.key)].key = -1 ){
 		         	esquema->Tabela[i].Tupla[hashtable(tupla.key)] = tupla;
