@@ -1,0 +1,23 @@
+Aloque uma string de tamanho n, onde n é um valor lido do teclado.
+
+''OBS: Você deve apenas compilar o código.''
+
+
+
+'''Entrada'''
+
+Não possui.
+
+'''Saída'''
+
+Não possui.
+
+
+'''Casos que os conceitos deste problema podem ser úteis'''
+
+Qualquer tipo de operações com vetores.
+
+'''Outros problemas que abordam o mesmo assunto'''
+
+[http://www.ic.unicamp.br/~rodolfo/Cursos/mc102/1s2003/exercicios4.html]
+[https://programacaodescomplicada.files.wordpress.com/2013/01/clista-5-strings.pdf]
