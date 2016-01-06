@@ -179,9 +179,9 @@ void mostratabela(Tabela tabela){
 void exibe(Tabela t,int n){
 	int i = hashtable(n);
 	
-	printf("\n%d", t.Tupla[i]->key);
-	printf("\n%lf",t.Tupla[i]->f);
-	printf("\n%s",t.Tupla[i]->string);
+	printf("\n%d", t.Tupla[i].key);
+	printf("\n%lf",t.Tupla[i].f);
+	printf("\n%s",t.Tupla[i].string);
 
 }
 */
