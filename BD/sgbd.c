@@ -49,33 +49,32 @@ int inseretupla(Schema *esquema, Tupla tupla, int i){
 	int j = 0;
 
 	if (i < MAX && i >= 0){
-		if(esquema->Tabela[i].flag != -1 && esquema->quantidade_tabela != 0 && esquema->Tabela[i].quantidade_tupla < MAX){
-			if(esquema->Tabela[i].Tupla[hashtable(tupla.key)].key = -1 ){
-		         	esquema->Tabela[i].Tupla[hashtable(tupla.key)] = tupla;
+	    if(esquema->Tabela[i].flag != -1 && esquema->quantidade_tabela != 0 && esquema->Tabela[i].quantidade_tupla < MAX){
+            if(esquema->Tabela[i].Tupla[hashtable(tupla.key)].key == -1 ){
+		        esquema->Tabela[i].Tupla[hashtable(tupla.key)] = tupla;
+                esquema->Tabela[i].quantidade_tupla++;
 			 	return 1;
-		     	}	
-		     	else{
-		     	 	j = hashtable(tupla.key);
+		    }	
+		    else{
+		     	j = hashtable(tupla.key);
 
 				while(esquema->Tabela[i].Tupla[j].key != -1){
-			 		j = (j + 1) % MAX;
-		         	}
-				
+			 	    j = (j + 1) % MAX;
+		        }	
 				esquema->Tabela[i].Tupla[j] = tupla;
+                esquema->Tabela[i].quantidade_tupla++;
 				return 1;				
-		 	}	
+		    }	
 		}
 		return 0;	
 	}
 	return -1;	
-
 }
 
 void preenche_tabela(Tabela *tabela){
 	tabela->flag = 1;
 	printf("\n Digite o nome da Tabela \n");
-	scanf("%s",tabela->nometabela);
-	 
+	scanf("%s",tabela->nometabela); 
 }
 
 /*
@@ -146,7 +145,21 @@ void preenche_tupla(Tupla *tupla){
 	scanf("%s",tupla->string);
 
 }
-/*
+
+void mostrartabela(Tabela tabela){
+    int i;
+
+    printf("Tabela: %s \n",tabela.nometabela);
+    printf("| ");
+    printf("   Chave    |");  
+    printf("   Valor    |");
+    printf("   String    ");
+    printf(" |");
+    for (i = 0; i < MAX; i++){
+        if(){}  
+    }
+}
+    /*
 void mostratabela(Tabela tabela){
 
 	Tupla *aux;
@@ -165,7 +178,7 @@ void mostratabela(Tabela tabela){
 			printf("\n| ");
 			printf(" %d       	 ",tabela.Tupla[i]->key);
 			printf(" %lf             ",tabela.Tupla[i]->f);
-		        printf(" %s 		 ",tabela.Tupla[i]->string);
+		    printf(" %s 		 ",tabela.Tupla[i]->string);
 			printf(" |");	
 		
 		}
@@ -175,7 +188,7 @@ void mostratabela(Tabela tabela){
 }
 */
 
-/*
+
 void exibe(Tabela t,int n){
 	int i = hashtable(n);
 	
@@ -184,6 +197,5 @@ void exibe(Tabela t,int n){
 	printf("\n%s",t.Tupla[i].string);
 
 }
-*/
 
 

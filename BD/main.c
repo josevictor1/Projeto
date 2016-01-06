@@ -2,7 +2,7 @@
 
 int main(){
 
-	int i;
+	int i = 0;
 	Tupla tu;
 	Tabela t;
 	Schema s;
@@ -21,14 +21,14 @@ int main(){
 	preenche_tupla(&tu);
         /*
       	printf("%d",tu.key);*/
-	inseretupla(&(s.Tabela[0]),tu);
+	inseretupla(&s,tu,i);
 	
-	/*
+	
 	printf("\n %s",t.nometabela);
-	printf("\n %s",s.Tabela[0].nometabela);
-	
-	printf("\n");*/	
-	exibe(s.Tabela[0],123);	
+	printf("\n %d",s.quantidade_tabela);
+	printf("\n %d",s.Tabela[0].quantidade_tupla);
+	printf("\n %d",s.Tabela[0].Tupla[123].key);	
+	//exibe(s.Tabela[0],123);	
 	
 
 	return 0;
