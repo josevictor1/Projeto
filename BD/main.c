@@ -2,7 +2,7 @@
 
 int main(){
 
-	int i = 0;
+	int n = 1;
 	Tupla tu;
 	Tabela t;
 	Schema s;
@@ -11,24 +11,27 @@ int main(){
 	PreparaTabela(&t);
 	inseretabela(&s,t);
 
-	/*
-	for(i = 0; i < 300; i++){
-		if(t.Tupla[i] == NULL)
-			printf("\n 1");
-	}*/
-      
-
-	preenche_tupla(&tu);
-        /*
-      	printf("%d",tu.key);*/
-	inseretupla(&s,tu,i);
-	
-	
-	printf("\n %s",t.nometabela);
-	printf("\n %d",s.quantidade_tabela);
-	printf("\n %d",s.Tabela[0].quantidade_tupla);
-	printf("\n %d",s.Tabela[0].Tupla[123].key);	
-	//exibe(s.Tabela[0],123);	
+    do{
+        printf("1- Inserir tabela\n");
+        printf("2- Pesquisar tabela\n");
+        printf("3- Mostrar todas as tabelas\n");
+        printf("4- Remover tabela\n");
+        printf("5- Editar tabela\n");
+        
+        
+        switch(n){
+            
+            case 1:
+            
+            case 2:
+            
+            case 3:
+            
+            case 4:
+            
+            case 5:
+        }
+    }while(n > 1 && n < 6);
 	
 
 	return 0;

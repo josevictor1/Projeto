@@ -1,23 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAX 300
 
 typedef struct tupla{
-        int key;
-        double f;
-        char string[60];	
+    int key;
+    double f;
+    char string[60];	
 }Tupla;
 
 typedef struct tabela{
 	int flag;
 	int quantidade_tupla;
 	char nometabela[20];
-        struct tupla Tupla[MAX];
+    struct tupla Tupla[MAX];
 }Tabela;
 
 typedef struct schema{
 	int quantidade_tabela;
-        struct tabela Tabela[MAX];
+    struct tabela Tabela[MAX];
 }Schema;
 
 int hashtable(int n);

@@ -77,6 +77,45 @@ void preenche_tabela(Tabela *tabela){
 	scanf("%s",tabela->nometabela); 
 }
 
+int remove_tabela(Schema *esquema, char *tabela){
+    
+    int i = 0;
+
+    while (strcmp(esquema->Tabela[i].nometabela,tabela) != 0 && i < MAX){
+        i++;
+    }
+
+    if (i == MAX){
+        return 0;
+    }
+    else{
+        esquema->Tabela[i].flag = -1;
+        return 1;
+    }
+}
+
+int remove_tupla(Schema *esquema, char *tabela, int key){
+    
+    if(key >= 0 || key < MAX){
+        int i = 0;
+        
+        while(strcmp(esquema->Tabela[i].nometabela,tabela) != 0){
+            i++;
+        }
+        if(i == MAX){
+            return 0;
+        }
+        else if(esquema->Tabela[i].flag == -1){
+            return 0;
+        } 
+        else{
+            esquema->Tabela[i].flag = -1;
+            return 1;
+        }
+    }
+    return -1;
+}
+
 /*
 void PreparaTabela(Tabela* tabela){
 
@@ -156,9 +195,17 @@ void mostrartabela(Tabela tabela){
     printf("   String    ");
     printf(" |");
     for (i = 0; i < MAX; i++){
-        if(){}  
+        if(tabela.Tupla[i].key == -1){
+            printf(" %d ", tabela.Tupla[i].key);
+            printf("    ");
+            printf(" %lf ",tabela.Tupla[i].f);
+            printf("   ");
+            printf(" %s ",tabela.Tupla[i].string);
+            printf("\n");
+        }  
     }
 }
+
     /*
 void mostratabela(Tabela tabela){
 
