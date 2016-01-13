@@ -1,12 +1,21 @@
 #include "sgbd.h"
 
 
+int hash0(char *tabela){
+    int soma = 0,i = 0;
+    while(tabela[i] != '\0'){
+        soma = (soma + tabela[i])%MAX;
+        i++;
+    }
+    return soma;
+}
+
 int hashtable(int n){
 	return n % MAX;
 }
 
 void PreparaEsquema(Schema *esquema){
-	
+
 	int i;
 	for (i = 0; i < MAX; i++){
 		esquema->Tabela[i].flag = -1;
@@ -15,7 +24,7 @@ void PreparaEsquema(Schema *esquema){
 }
 
 void PreparaTabela(Tabela *tabela){
-	
+
 	int i;
 	for (i = 0; i< MAX; i++){
 		tabela->Tupla[i].key = -1;
@@ -26,22 +35,26 @@ void PreparaTabela(Tabela *tabela){
 }
 
 int inseretabela(Schema *esquema, Tabela tabela){
-	int i = 0;
+	int i = 0,key = hash0(tabela.nometabela);
+
 	if(esquema->quantidade_tabela < MAX){
-		while (i < MAX && esquema->Tabela[i].flag != -1){
-			i++;
-		}
-		if(i == MAX-1){
-			return 0;
-		}
-		else{
-			esquema->Tabela[i] = tabela;
-			esquema->quantidade_tabela++;
-			return 1;
-		}	
-		return 0;
-	}
-	return -1;
+                          
+        if(esquema->Tabela[key].flag == -1){ 
+            esquema->Tabela[key] = tabela;
+            esquema->Tabela[key].flag = key;
+		    esquema->quantidade_tabela++;
+		    return 1;
+        }
+        else{
+            while (i < MAX && esquema->Tabela[i].flag != -1){
+			    i = (i + 1)%MAX;
+		    }
+		    esquema->Tabela[i] = tabela;
+		    esquema->quantidade_tabela++;
+		    return 1;
+        }
+    }
+	return 0;
 
 }
 
@@ -54,51 +67,63 @@ int inseretupla(Schema *esquema, Tupla tupla, int i){
 		        esquema->Tabela[i].Tupla[hashtable(tupla.key)] = tupla;
                 esquema->Tabela[i].quantidade_tupla++;
 			 	return 1;
-		    }	
+		    }
 		    else{
 		     	j = hashtable(tupla.key);
 
 				while(esquema->Tabela[i].Tupla[j].key != -1){
 			 	    j = (j + 1) % MAX;
-		        }	
+		        }
 				esquema->Tabela[i].Tupla[j] = tupla;
                 esquema->Tabela[i].quantidade_tupla++;
-				return 1;				
-		    }	
+				return 1;
+		    }
 		}
-		return 0;	
+		return 0;
 	}
-	return -1;	
+	return -1;
 }
 
 void preenche_tabela(Tabela *tabela){
 	tabela->flag = 1;
-	printf("\n Digite o nome da Tabela \n");
-	scanf("%s",tabela->nometabela); 
+	printf("\n Digite o nome da Tabela: ");
+	scanf("%s",tabela->nometabela);
 }
 
 int remove_tabela(Schema *esquema, char *tabela){
+
     
-    int i = 0;
+    if(esquema->quantidade_tabela != 0){
+        int i = 0, h = hash0(tabela);
 
-    while (strcmp(esquema->Tabela[i].nometabela,tabela) != 0 && i < MAX){
-        i++;
+        if(strcmp(esquema->Tabela[h].nometabela,tabela) == 0 && esquema->Tabela[h].flag != -1){
+            esquema->Tabela[h].flag = -1;
+            return 1;
+        }
+        else if(strcmp(esquema->Tabela[h].nometabela,tabela) == 0 && esquema->Tabela[h].flag == -1){
+            return -1;
+        }
+        else{
+            while (strcmp(esquema->Tabela[i].nometabela,tabela) != 0 && i < MAX){
+                i++;
+            }
+            if (i == MAX){
+                return 0;
+            }
+            else{
+                esquema->Tabela[i].flag = -1;
+                return 1;
+            }
+        }
     }
-
-    if (i == MAX){
-        return 0;
-    }
-    else{
-        esquema->Tabela[i].flag = -1;
-        return 1;
-    }
+    return -1;
 }
 
 int remove_tupla(Schema *esquema, char *tabela, int key){
-    
-    if(key >= 0 || key < MAX){
+
+    if(key >= 0 && key < MAX){
         int i = 0;
-        
+
         while(strcmp(esquema->Tabela[i].nometabela,tabela) != 0){
             i++;
         }
@@ -107,7 +132,7 @@ int remove_tupla(Schema *esquema, char *tabela, int key){
         }
         else if(esquema->Tabela[i].flag == -1){
             return 0;
-        } 
+        }
         else{
             esquema->Tabela[i].flag = -1;
             return 1;
@@ -116,11 +141,34 @@ int remove_tupla(Schema *esquema, char *tabela, int key){
     return -1;
 }
 
+
+int buscatabela(Schema esquema, char *tabela, Tabela *t){
+
+    if(esquema.quantidade_tabela > 0){
+        int i = 0;
+
+        while(i != MAX && strcmp(esquema.Tabela[i].nometabela, tabela) != 0){
+            i++;
+        }
+
+        if(i == MAX)
+            return 0;
+
+	    *t = esquema.Tabela[i];
+	    return 1;
+    }
+
+    return -1;
+
+
+}
+
+
 /*
 void PreparaTabela(Tabela* tabela){
 
 	int i;
-        tabela.	
+        tabela.
 	for (i = 0; i < 300; i++){
 		tabela->Tupla[i] = NULL;
 	}
@@ -132,14 +180,14 @@ void PreparaTabela(Tabela* tabela){
 	}
 }
 
+*/
 
-
-
+/*
 int inseretupla(Tabela *tabela, Tupla tupla){
-	
+
 	int i = 0;
 	Tupla *aux, *aux1 = NULL;
-	
+
 	aux = (Tupla*) malloc(sizeof(Tupla));
 
 	if(aux == NULL){
@@ -152,6 +200,7 @@ int inseretupla(Tabela *tabela, Tupla tupla){
 	if(tabela->flag != -1){
 		if (tabela->Tupla[hashtable(tupla.key)] == NULL){
 			tabela->Tupla[hashtable(tupla.key)] = aux;
+            tabela->quatidade_tupla++;
 		//	printf("\n l %d",hashtable(tupla.key));
 		//	printf("\n m %s",tabela->nometabela);
 		}
@@ -163,13 +212,13 @@ int inseretupla(Tabela *tabela, Tupla tupla){
 			}
 
 			aux1->prox = aux;
-			
+
 
 		}
 
 		return 1;
 	}
-	
+
 	return 0;
 
 }
@@ -185,24 +234,36 @@ void preenche_tupla(Tupla *tupla){
 
 }
 
-void mostrartabela(Tabela tabela){
+
+void mostrattabelas(Schema esquema){
+    int i;
+    for(i = 0; i < MAX; i++){
+        if(esquema.Tabela[i].flag != -1){
+            printf("Tabela: %s\n",esquema.Tabela[i].nometabela);
+            printf("Quantidade de elementos: %d\n", esquema.Tabela[i].quantidade_tupla);
+        }
+    }
+
+}
+
+void mostratabela(Tabela tabela){
     int i;
 
     printf("Tabela: %s \n",tabela.nometabela);
     printf("| ");
-    printf("   Chave    |");  
+    printf("   Chave    |");
     printf("   Valor    |");
     printf("   String    ");
-    printf(" |");
+    printf(" |\n");
     for (i = 0; i < MAX; i++){
         if(tabela.Tupla[i].key == -1){
-            printf(" %d ", tabela.Tupla[i].key);
+            printf("    %d ", tabela.Tupla[i].key);
             printf("    ");
-            printf(" %lf ",tabela.Tupla[i].f);
+            printf("    %lf ",tabela.Tupla[i].f);
             printf("   ");
-            printf(" %s ",tabela.Tupla[i].string);
+            printf("    %s ",tabela.Tupla[i].string);
             printf("\n");
-        }  
+        }
     }
 }
 
@@ -210,7 +271,7 @@ void mostrartabela(Tabela tabela){
 void mostratabela(Tabela tabela){
 
 	Tupla *aux;
-	int i;
+        int i;
 
 	printf("Tabela: %s \n",tabela.nometabela);
 	printf("| ");
@@ -226,10 +287,10 @@ void mostratabela(Tabela tabela){
 			printf(" %d       	 ",tabela.Tupla[i]->key);
 			printf(" %lf             ",tabela.Tupla[i]->f);
 		    printf(" %s 		 ",tabela.Tupla[i]->string);
-			printf(" |");	
-		
+			printf(" |");
+
 		}
-	
+
 	}
 
 }
@@ -238,11 +299,9 @@ void mostratabela(Tabela tabela){
 
 void exibe(Tabela t,int n){
 	int i = hashtable(n);
-	
+
 	printf("\n%d", t.Tupla[i].key);
 	printf("\n%lf",t.Tupla[i].f);
 	printf("\n%s",t.Tupla[i].string);
 
 }
-
-
