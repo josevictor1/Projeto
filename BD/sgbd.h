@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX 300
+#define MAX 100
 
 typedef struct tupla{
     int key;
@@ -29,4 +29,11 @@ void PreparaTabela(Tabela* tabela);
 int inseretupla(Schema *esquema, Tupla tupla, int i);
 void preenche_tupla(Tupla *tupla);
 void mostratabela(Tabela tabela);
-void exibe(Tabela t,int n);
+void exibe(Tabela t, int n);
+int remove_tabela(Schema *esquema, char *tabela);
+int buscatabela(Schema esquema, char *tabela, Tabela *t);
+int remove_tupla(Schema *esquema, char *tabela, int key);
+void mostrattabelas(Schema esquema);
+
+
+
