@@ -79,6 +79,7 @@ int main(){
                             preenche_tupla(&tu);
                             break;
                         case 2:
+                            
                             break;
                         case 3:
                             break;

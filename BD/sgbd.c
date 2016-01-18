@@ -35,7 +35,7 @@ void PreparaTabela(Tabela *tabela){
 }
 
 int inseretabela(Schema *esquema, Tabela tabela){
-	int i = 0,key = hash0(tabela.nometabela);
+	int i = 0, key = hash0(tabela.nometabela);
 
 	if(esquema->quantidade_tabela < MAX){
                           
@@ -145,24 +145,46 @@ int remove_tupla(Schema *esquema, char *tabela, int key){
 int buscatabela(Schema esquema, char *tabela, Tabela *t){
 
     if(esquema.quantidade_tabela > 0){
-        int i = 0;
-
-        while(i != MAX && strcmp(esquema.Tabela[i].nometabela, tabela) != 0){
-            i++;
+        int i,hash = hash0(tabela);
+        
+        if(strcmp(esquema.Tabela[hash].nometabela,tabela) == 0){
+            *t = esquema.Tabela[hash];        
+            return 1;
         }
+       
+        else{
+            i = hash + 1;  
+            
+            while(i != hash && strcmp(esquema.Tabela[i].nometabela,tabela) != 0){
+                i++;
+            }
 
-        if(i == MAX)
+            if(strcmp(esquema.Tabela[i].nometabela,tabela) == 0){
+	            *t = esquema.Tabela[i];
+	            return 1;
+            }
             return 0;
-
-	    *t = esquema.Tabela[i];
-	    return 1;
+        }     
     }
 
     return -1;
-
-
 }
 
+int buscatupla(Schema esquema,char *tabela,int key,Tupla *tupla){
+    
+    int htabela = hash0(tabela), htupla = 0;
+    
+    if(esquema.Tabela[htabela].flag != -1 && key >= 0){
+        htupla = hashtable(key);
+        if(esquema.Tabela[htabela].Tupla[htupla].key == key){
+            *tupla = esquema.Tabela[htabela].Tupla[htupla];
+            return 1;
+        }
+        else{
+           // while( )
+        }
+    }
+}
 
 /*
 void PreparaTabela(Tabela* tabela){
